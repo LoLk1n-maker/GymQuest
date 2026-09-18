@@ -36,8 +36,6 @@ GymQuest Kingdom превращает тренировки в ролевую и�
 | ⚔️ Варвар | спина и сила |
 | 🧙 Маг | кор и мобильность |
 
-Форма регистрации с выбором класса
-
 <img width="583" height="742" alt="image" src="https://github.com/user-attachments/assets/b7bdbb74-d79d-4bf5-a7b6-5d389fe1962e" />
 
 
@@ -49,7 +47,6 @@ GymQuest Kingdom превращает тренировки в ролевую и�
 - выход из клана и роспуск клана владельцем;
 - при создании клана в журнал сразу добавляются три стартовых задания.
 
-Cтраница кланов
 
 <img width="1920" height="951" alt="image" src="https://github.com/user-attachments/assets/de403d62-dded-43e7-85da-e67e20a30903" />
 
@@ -61,11 +58,9 @@ Cтраница кланов
 - видно, кто взялся за задание и кто его завершил;
 - опыт за выполненное задание получают все его участники.
 
-Журнал заданий
 
 <img width="1919" height="951" alt="image" src="https://github.com/user-attachments/assets/d37f41fe-4a0c-447e-ad74-acd79d461c1c" />
 
-Форма создания задания
 
 <img width="556" height="609" alt="image" src="https://github.com/user-attachments/assets/43691ae7-a4e1-4e33-9348-8c941774432d" />
 
@@ -103,8 +98,6 @@ Cтраница кланов
 ### 🏆 Таблица лидеров
 
 Топ-5 героев по опыту с медалями за первые три места и личное место текущего игрока в общем зачёте.
-
-Таблица лидеров:
 
 <img width="1920" height="951" alt="image" src="https://github.com/user-attachments/assets/658101cc-e888-4453-b21f-a14a307719b9" />
 
