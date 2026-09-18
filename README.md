@@ -11,8 +11,9 @@
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?logo=bootstrap&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-3-003B57?logo=sqlite&logoColor=white)
 
-<!-- СКРИНШОТ: главная страница целиком -->
- 
+Главная страница целиком:
+<img width="1919" height="953" alt="image" src="https://github.com/user-attachments/assets/3a84e014-85ca-4d33-87ef-7a5bd54c50aa" />
+
 
 </div>
 
@@ -35,7 +36,8 @@ GymQuest Kingdom превращает тренировки в ролевую и�
 | ⚔️ Варвар | спина и сила |
 | 🧙 Маг | кор и мобильность |
 
-<!-- СКРИНШОТ: форма регистрации с выбором класса -->
+Форма регистрации с выбором класса
+<img width="583" height="742" alt="image" src="https://github.com/user-attachments/assets/b7bdbb74-d79d-4bf5-a7b6-5d389fe1962e" />
 
 
 ### 🏰 Кланы
@@ -46,20 +48,22 @@ GymQuest Kingdom превращает тренировки в ролевую и�
 - выход из клана и роспуск клана владельцем;
 - при создании клана в журнал сразу добавляются три стартовых задания.
 
-<!-- СКРИНШОТ: страница кланов -->
+Cтраница кланов
+<img width="1920" height="951" alt="image" src="https://github.com/user-attachments/assets/de403d62-dded-43e7-85da-e67e20a30903" />
 
 
 ### 📋 Журнал заданий клана
 
-- задания разложены по трём колонкам: **доступные → в процессе → завершённые**;
+- задания разложены по трём категориям: **доступные → в процессе → завершённые**;
 - любой участник клана может создать задание с описанием, наградой (1–1000 XP) и дедлайном;
 - видно, кто взялся за задание и кто его завершил;
 - опыт за выполненное задание получают все его участники.
 
-<!-- СКРИНШОТ: журнал заданий -->
+Журнал заданий
+<img width="1919" height="951" alt="image" src="https://github.com/user-attachments/assets/d37f41fe-4a0c-447e-ad74-acd79d461c1c" />
 
-
-<!-- СКРИНШОТ: форма создания задания -->
+Форма создания задания
+<img width="556" height="609" alt="image" src="https://github.com/user-attachments/assets/43691ae7-a4e1-4e33-9348-8c941774432d" />
 
 
 ### 📈 Опыт, уровни и ранги
@@ -84,16 +88,18 @@ GymQuest Kingdom превращает тренировки в ролевую и�
 - история последних выполненных заданий;
 - публичный профиль любого героя по адресу `/profile/<username>/`.
 
-<!-- СКРИНШОТ: личный профиль -->
+Личный профиль
+<img width="1920" height="951" alt="image" src="https://github.com/user-attachments/assets/e251232e-d476-42a5-a3e9-0d94a4952095" />
 
-<!-- СКРИНШОТ: публичный профиль другого игрока -->
-
+Публичный профиль другого игрока
+<img width="1920" height="948" alt="image" src="https://github.com/user-attachments/assets/eaee91e3-5ac4-4cbb-93bc-5cd25f2e6517" />
 
 ### 🏆 Таблица лидеров
 
 Топ-5 героев по опыту с медалями за первые три места и личное место текущего игрока в общем зачёте.
 
-<!-- СКРИНШОТ: таблица лидеров -->
+Таблица лидеров:
+<img width="1920" height="951" alt="image" src="https://github.com/user-attachments/assets/658101cc-e888-4453-b21f-a14a307719b9" />
 
 
 ---
