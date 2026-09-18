@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block title %}Кланы и рейтинги{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/clans.css' %}">
+
+<section class="py-5">
+  <div class="container">
+    <h2 class="section-title text-center mb-3">Кланы</h2>
+
+
+    <div class="row g-4 mb-4">
+      <!-- Инфо о текущем клане/создание/вступление -->
+      <div class="col-lg-7">
+        <h3 class="h5 mb-3">Список кланов</h3>
+
+        <div class="clan-list">
+          {% for clan in clans %}
+          <div class="clan-card mb-3 p-3">
+
+              <h4>
+                  {{ clan.name }}
+                  {% if clan.owner == request.user %}
+                      👑
+                  {% endif %}
+              </h4>
+
+              <p>Участников: {{ clan.members.count }}</p>
+
+              <p>
+                  Владелец:
+                  <strong>{{ clan.owner.username }}</strong>
+              </p>
+
+              {% if request.user in clan.members.all %}
+
+                <p>Код: <strong>{{ clan.code }}</strong></p>
+
+
+
+                {% if request.user == clan.owner %}
+
+                    <span class="text-warning">Вы владелец 👑</span>
+
+                    <a href="{% url 'delete_clan' clan.id %}" class="btn btn-danger btn-sm">
+                        Удалить клан
+                    </a>
+                {% elif request.user in clan.members.all %}
+
+                    <span class="text-success">Вы в клане</span>
+
+                    <a href="{% url 'leave_clan' clan.id %}" class="btn btn-outline-danger btn-sm">
+                        Покинуть
+                    </a>
+                {% else %}
+                    <a href="{% url 'join_clan' clan.id %}" class="btn btn-outline-light btn-sm">
+                        Вступить
+                    </a>
+
+                {% endif %}
+
+              {% else %}
+
+                <a href="{% url 'join_clan' clan.id %}" class="btn btn-outline-light btn-sm">
+                Вступить
+                </a>
+              {% endif %}
+
+          </div>
+          {% empty %}
+          <p>Пока нет кланов</p>
+          {% endfor %}
+
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="parchment mb-4">
+            {% if not request.user.clans.exists %}
+                <h3 class="h5 mb-3">Создать новый клан</h3>
+                <form method="POST" action="{% url 'create_clan' %}">
+                  {% csrf_token %}
+
+                  <input type="text" name="name" class="form-control mb-2" placeholder="Название клана">
+
+                  <button class="btn btn-gold w-100 btn-sm" type="submit">
+                      Создать клан
+                  </button>
+                </form>
+            {% else %}
+                <p>Вы уже состоите в клане</p>
+            {% endif %}
+        </div>
+
+        <div class="parchment">
+            <h3 class="h5 mb-3">Вступить по коду</h3>
+
+            <form method="POST" action="{% url 'join_by_code' %}" class="mt-3">
+                {% csrf_token %}
+
+                <input type="text" name="code" class="form-control mb-2"
+                       placeholder="Введите код клана">
+
+                <button class="btn btn-gold w-100 btn-sm" type="submit">
+                    Вступить по коду
+                </button>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Задания{% endblock %}
+
+{% block content %}
+
+
+<link rel="stylesheet" href="{% static 'css/task.css' %}">
+
+
+<section class="py-5"><div class="container">
+
+<h2 class="section-title text-center mb-4">Задания клана</h2>
+
+<div class="row g-4">
+
+  <!-- 🔥 ЛЕВАЯ ЧАСТЬ (ЗАДАЧИ) -->
+  <div class="col-lg-8">
+
+    <div class="parchment">
+
+      <h3 class="mb-3">Журнал заданий клана {{ clan.name }}</h3>
+
+      <!-- 🟡 TODO -->
+      <h5 class="task-section-title task-todo">Доступные задания</h5>
+
+      {% for task in tasks_todo %}
+        <div class="task-card p-3 mb-3">
+
+          <div class="d-flex justify-content-between align-items-center">
+
+            <div>
+              <div class="fw-bold">{{ task.title }}</div>
+              <small>{{ task.description }}</small>
+
+              <div class="mt-2">
+                <span class="mini-pill">+{{ task.xp_reward }} XP</span>
+                <span class="badge bg-secondary">To Do</span>
+
+                {% if task.deadline %}
+                  <span class="mini-pill">до {{ task.deadline }}</span>
+                {% endif %}
+              </div>
+            </div>
+
+            <a href="{% url 'start_task' task.id %}" class="btn btn-warning btn-sm">
+              Начать
+            </a>
+
+          </div>
+
+        </div>
+      {% empty %}
+        <p class="text-muted">Нет доступных заданий</p>
+      {% endfor %}
+
+
+      <!-- 🟠 DOING -->
+      <h5 class="task-section-title task-doing mt-4">В процессе</h5>
+
+      {% for task in tasks_doing %}
+        <div class="task-card p-3 mb-3">
+
+          <div class="d-flex justify-content-between align-items-center">
+
+            <div>
+              <div class="fw-bold">{{ task.title }}</div>
+              <small>{{ task.description }}</small>
+
+              <div class="mt-2">
+                <span class="mini-pill">+{{ task.xp_reward }} XP</span>
+                <span class="badge bg-warning text-dark">Doing</span>
+
+                {% if task.deadline %}
+                  <span class="mini-pill">до {{ task.deadline }}</span>
+                {% endif %}
+              </div>
+
+              {% if task.participants.all %}
+                <div class="mt-2">
+                  <small>Выполняет:</small>
+                  {% for user in task.participants.all %}
+                    <span class="mini-pill">{{ user.username }}</span>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+
+            {% if request.user in task.participants.all %}
+              <a href="{% url 'complete_task' task.id %}" class="btn btn-gold btn-sm">
+                Завершить
+              </a>
+            {% endif %}
+
+          </div>
+
+        </div>
+      {% empty %}
+        <p class="text-muted">Нет активных заданий</p>
+      {% endfor %}
+
+
+      <!-- 🟢 DONE -->
+      <h5 class="task-section-title task-done mt-4">Завершённые</h5>
+
+      {% for task in tasks_done %}
+        <div class="task-card p-3 mb-3 opacity-75">
+
+          <div>
+            <div class="fw-bold">{{ task.title }}</div>
+            <small>{{ task.description }}</small>
+
+            <div class="mt-2">
+              <span class="mini-pill">+{{ task.xp_reward }} XP</span>
+              <span class="badge bg-success">Done</span>
+            </div>
+
+            {% if task.completions.all %}
+              <div class="mt-2">
+                <small>Выполнил:</small>
+                {% for comp in task.completions.all %}
+                  <span class="mini-pill">{{ comp.completed_by.username }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+
+        </div>
+      {% empty %}
+        <p class="text-muted">Нет завершённых заданий</p>
+      {% endfor %}
+
+    </div>
+
+  </div>
+
+  <!-- ⚙️ ПРАВАЯ ЧАСТЬ (СОЗДАНИЕ) -->
+  <div class="col-lg-4">
+    <div class="parchment">
+
+      <h4 class="mb-3">Создать задание</h4>
+
+      <form method="post" action="{% url 'create_task' %}">
+        {% csrf_token %}
+
+        {{ form.title.label_tag }}
+        {{ form.title }}
+
+        {{ form.description.label_tag }}
+        {{ form.description }}
+
+        {{ form.xp_reward.label_tag }}
+        {{ form.xp_reward }}
+
+        {{ form.deadline.label_tag }}
+        {{ form.deadline }}
+
+        <button type="submit" class="btn btn-gold w-100 mt-3">
+          Создать
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+</div>
+
+  </div>
+</section>
+
+{% endblock %}

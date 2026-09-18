@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ profile.user.username }} — Профиль героя{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="row">
+    <!-- Left Card - Same style as main profile -->
+    <div class="col-lg-4">
+      <div class="profile-card1">
+        {% if profile.avatar %}
+          <img src="{{ profile.avatar.url }}" class="avatar-large" alt="avatar">
+        {% else %}
+          <img src="{% static 'images/default_avatar.jpg' %}" class="avatar-large" alt="avatar">
+        {% endif %}
+
+        <h3>{{ profile.user.username }}</h3>
+        <p class="text-gold">Уровень {{ profile.level }} • {{ profile.experience }} XP</p>
+        <p><strong>Класс:</strong> {{ profile.get_character_class_display }}</p>
+
+        {% if clan %}
+          <p><strong>Клан:</strong> {{ clan.name }}</p>
+        {% endif %}
+
+        <!-- Completed Tasks -->
+        <div class="mt-4">
+          <h5>Выполненные задания</h5>
+          {% if completed_tasks %}
+            <ul class="list-unstyled">
+              {% for completion in completed_tasks %}
+                <li class="mb-1">✅ {{ completion.task.title }} (+{{ completion.task.xp_reward }} XP)</li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">Пока нет выполненных заданий</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Right side info (same as main profile) -->
+    <div class="col-lg-8">
+      <!-- Bio, goals, etc. (copy-paste from profile.html with no forms) -->
+      <div class="profile-card2">
+
+        <div class="char-preview mx-auto mb-3">
+                {% if profile.character_class == 'ranger' %}
+                  <img src="{% static 'images/luk.jpg' %}" alt="Рейнджер">
+                {% elif profile.character_class == 'paladin' %}
+                  <img src="{% static 'images/rizar.jpg' %}" alt="Паладин">
+                {% elif profile.character_class == 'barbarian' %}
+                  <img src="{% static 'images/viking.jpg' %}" alt="Варвар">
+                {% elif profile.character_class == 'mage' %}
+                  <img src="{% static 'images/mag.jpg' %}" alt="Маг">
+                {% else %}
+                  <img src="{% static 'images/viking.jpg' %}" alt="Персонаж">
+                {% endif %}
+
+          </div>
+        <h3>{{ profile.display_name|default:profile.user.username }}</h3>
+        <h4>О герое</h4>
+        <p><strong>Главная цель:</strong> {{ profile.main_goal|default:"Не указано" }}</p>
+        <p><strong>Любимое подземелье:</strong> {{ profile.favorite_dungeon|default:"Не указано" }}</p>
+        <p><strong>Биография:</strong> {{ profile.bio|default:"—" }}</p>
+
+        <p><strong>Достижения</strong>
+            <div class="d-flex flex-column gap-2 small">
+
+              <div class="d-flex justify-content-between align-items-center">
+                <span>🎖️ Ранг искателя</span>
+                <span class="mini-pill">{{ profile.task_achievement }}</span>
+              </div>
+
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

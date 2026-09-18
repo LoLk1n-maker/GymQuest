@@ -1,0 +1,57 @@
+/* ===== СТРАНИЦА КЛАНОВ ===== */
+
+/* фон страницы */
+body.page-clans {
+  background: radial-gradient(circle at top, #273044 0, #080c14 55%, #010308 100%);
+}
+
+/* контейнер чтобы не налезало на футер */
+section {
+  padding-bottom: 60px;
+}
+
+/* карточка клана (уменьшили!) */
+.clan-card {
+  height: 150px;
+  background: rgba(10, 10, 20, 0.9);
+  border-radius: 14px;
+  border: 2px solid rgba(255, 216, 107, 0.25);
+  padding: 1rem;
+  margin-bottom: 12px;
+  transition: 0.2s;
+}
+
+/* ховер эффект */
+.clan-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 216, 107, 0.6);
+}
+
+/* заголовок */
+.clan-card h4 {
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+/* текст */
+.clan-card p {
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}
+
+/* кнопки компактнее */
+.clan-card .btn {
+  font-size: 0.7rem;
+  padding: 3px 8px;
+}
+
+/* блок со списком кланов */
+.clan-list {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+/* фикс от налезания на футер */
+.container {
+  margin-bottom: 40px;
+}

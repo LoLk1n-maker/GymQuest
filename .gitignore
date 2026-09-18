@@ -1,0 +1,37 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- Виртуальное окружение ---
+venv/
+.venv/
+env/
+
+# --- Секреты ---
+.env
+.env.*
+!.env.example
+
+# --- Django ---
+db.sqlite3
+db.sqlite3-journal
+*.sqlite3
+media/
+staticfiles/
+*.log
+
+# --- Сборка документации Sphinx ---
+docs/build/
+GymQuest/docs/
+
+# --- IDE / ОС ---
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini

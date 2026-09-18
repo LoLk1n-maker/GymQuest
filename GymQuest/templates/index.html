@@ -1,0 +1,321 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}GymQuest Kingdom — Главная{% endblock %}
+{% block active_home %}active{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* Стили только для главной страницы */
+  .home-lead { max-width: 560px; color: #f9e4b7; font-size: 1.1rem; line-height: 1.6; }
+
+  .home-facts { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .home-facts span {
+    border: 1px solid rgba(255, 216, 107, .35);
+    border-radius: 999px;
+    padding: .3rem .8rem;
+    font-size: .85rem;
+    color: #f2e6cf;
+    background: rgba(0, 0, 0, .35);
+  }
+
+  /* Классы героев */
+  .class-tile { text-align: center; padding: 1.25rem 1rem; }
+  .class-tile img {
+    width: 100%;
+    max-width: 150px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 3px solid #ffd86b;
+    background: #000;
+    margin-bottom: .9rem;
+  }
+  .class-tile h3 { font-family: "Cinzel", "Times New Roman", serif; color: #ffd86b; font-size: 1.15rem; margin-bottom: .25rem; }
+  .class-tile p { font-size: .9rem; color: #d9ccb2; margin: 0; }
+
+  /* Путь героя — настоящая последовательность, поэтому с номерами */
+  .journey { counter-reset: step; list-style: none; padding: 0; margin: 0; }
+  .journey li { position: relative; padding: 0 0 1.6rem 3.4rem; }
+  .journey li:last-child { padding-bottom: 0; }
+  .journey li::before {
+    counter-increment: step;
+    content: counter(step);
+    position: absolute; left: 0; top: -.15rem;
+    width: 2.4rem; height: 2.4rem;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    border: 2px solid #915e10;
+    background: linear-gradient(135deg, #ffde7a, #f3b64a);
+    color: #3a2302; font-weight: 700;
+  }
+  .journey li:not(:last-child)::after {
+    content: ""; position: absolute; left: 1.15rem; top: 2.4rem; bottom: .2rem;
+    width: 2px; background: rgba(255, 216, 107, .3);
+  }
+  .journey h3 { font-size: 1.05rem; margin-bottom: .2rem; color: #fff3d6; }
+  .journey p { margin: 0; color: #d9ccb2; font-size: .95rem; }
+
+  /* Лестница рангов на пергаменте */
+  .rank-ladder { list-style: none; padding: 0; margin: 0; }
+  .rank-ladder li {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+    padding: .55rem 0;
+    border-bottom: 1px dashed rgba(51, 34, 17, .3);
+  }
+  .rank-ladder li:last-child { border-bottom: 0; }
+  .rank-ladder .req { font-size: .85rem; color: #6b5433; white-space: nowrap; }
+
+  .demo-xp { height: .9rem; border-radius: 999px; background: rgba(51, 34, 17, .2); overflow: hidden; }
+  .demo-xp div { height: 100%; width: 70%; background: linear-gradient(90deg, #4af0ff, #ffde7a); }
+
+  /* Список возможностей */
+  .feature-list { list-style: none; padding: 0; margin: 0; }
+  .feature-list li { padding: .9rem 0; border-bottom: 1px solid rgba(255, 255, 255, .08); }
+  .feature-list li:last-child { border-bottom: 0; }
+  .feature-list strong { color: #ffd86b; display: block; margin-bottom: .15rem; }
+  .feature-list span { color: #d9ccb2; font-size: .95rem; }
+
+  .home-section { padding: 3rem 0; }
+  .home-section + .home-section { border-top: 1px solid rgba(255, 255, 255, .06); }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Первый экран: о проекте + вход/регистрация -->
+<section class="py-5">
+  <div class="container">
+    <div class="row align-items-start g-5">
+      <div class="col-lg-7">
+        <h1 class="hero-title text-warning mb-3">Твой спортзал становится средневековой MMORPG</h1>
+        <p class="home-lead mb-4">
+          GymQuest Kingdom — фитнес-трекер в духе ролевой игры. Создай героя, вступи в клан
+          и выполняйте задания вместе: каждая тренировка приносит опыт, уровни и место в таблице лидеров.
+        </p>
+        <div class="home-facts">
+          <span>4 класса героев</span>
+          <span>Кланы с кодом приглашения</span>
+          <span>Общий журнал заданий</span>
+          <span>Рейтинг по опыту</span>
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        {% if user.is_authenticated %}
+          <div class="parchment text-center">
+            <h2 class="h5 mb-2">С возвращением, {{ user.username }}!</h2>
+            <p class="mb-4">Куда отправимся сегодня?</p>
+            <div class="d-grid gap-2">
+              <a href="{% url 'quests' %}" class="btn btn-gold">Журнал заданий</a>
+              <a href="{% url 'profile' %}" class="btn btn-outline-dark">Мой профиль</a>
+              <a href="{% url 'rating' %}" class="btn btn-outline-dark">Таблица лидеров</a>
+            </div>
+          </div>
+        {% else %}
+          <div class="parchment" id="auth">
+            <h2 class="h5 mb-3 text-center">Войти или создать героя</h2>
+
+            {% if messages %}
+              {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
+                </div>
+              {% endfor %}
+            {% endif %}
+
+            <ul class="nav nav-pills nav-justified mb-3" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login-pane" type="button" role="tab">Вход</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register-pane" type="button" role="tab">Регистрация</button>
+              </li>
+            </ul>
+
+            <div class="tab-content">
+              <!-- Вход -->
+              <div class="tab-pane fade show active" id="login-pane" role="tabpanel">
+                <form method="post">
+                  {% csrf_token %}
+                  {{ login_form.non_field_errors }}
+                  <input type="hidden" name="login_submit" value="1">
+                  <div class="mb-3">
+                    <label class="form-label" for="{{ login_form.username.id_for_label }}">Имя героя</label>
+                    {{ login_form.username }}
+                    {% if login_form.username.errors %}<div class="text-danger small">{{ login_form.username.errors }}</div>{% endif %}
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="{{ login_form.password.id_for_label }}">Пароль</label>
+                    {{ login_form.password }}
+                    {% if login_form.password.errors %}<div class="text-danger small">{{ login_form.password.errors }}</div>{% endif %}
+                  </div>
+                  <button type="submit" class="btn btn-gold w-100">Войти</button>
+                </form>
+              </div>
+
+              <!-- Регистрация -->
+              <div class="tab-pane fade" id="register-pane" role="tabpanel">
+                <form method="post">
+                  {% csrf_token %}
+                  {{ registration_form.non_field_errors }}
+                  <input type="hidden" name="register_submit" value="1">
+                  <div class="mb-3">
+                    <label class="form-label" for="{{ registration_form.username.id_for_label }}">Имя героя</label>
+                    {{ registration_form.username }}
+                    {% if registration_form.username.errors %}<div class="text-danger small">{{ registration_form.username.errors }}</div>{% endif %}
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="{{ registration_form.email.id_for_label }}">E-mail</label>
+                    {{ registration_form.email }}
+                    {% if registration_form.email.errors %}<div class="text-danger small">{{ registration_form.email.errors }}</div>{% endif %}
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="{{ registration_form.password1.id_for_label }}">Пароль</label>
+                    {{ registration_form.password1 }}
+                    {% if registration_form.password1.errors %}<div class="text-danger small">{{ registration_form.password1.errors }}</div>{% endif %}
+                    <div class="form-text">Минимум 8 символов, не только цифры.</div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="{{ registration_form.password2.id_for_label }}">Повторите пароль</label>
+                    {{ registration_form.password2 }}
+                    {% if registration_form.password2.errors %}<div class="text-danger small">{{ registration_form.password2.errors }}</div>{% endif %}
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="{{ registration_form.character_class.id_for_label }}">Класс</label>
+                    {{ registration_form.character_class }}
+                    <div class="form-text">Класс можно сменить позже в профиле.</div>
+                  </div>
+                  <button type="submit" class="btn btn-gold w-100">Создать героя</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Путь героя + ранги -->
+<section class="home-section">
+  <div class="container">
+    <div class="row g-5 align-items-start">
+      <div class="col-lg-6">
+        <h2 class="section-title mb-4">Путь героя</h2>
+        <ol class="journey">
+          <li>
+            <h3>Создай героя</h3>
+            <p>Регистрация занимает минуту: имя, почта, пароль и класс. Потом загрузи аватар и расскажи о своей цели.</p>
+          </li>
+          <li>
+            <h3>Найди клан</h3>
+            <p>Создай свой или вступи в существующий по коду от друга. Без клана журнал заданий закрыт.</p>
+          </li>
+          <li>
+            <h3>Берись за задания</h3>
+            <p>У нового клана сразу есть три стартовых задания. Любой участник может добавить своё — с описанием, наградой до 1000 XP и сроком.</p>
+          </li>
+          <li>
+            <h3>Получай опыт</h3>
+            <p>Завершённое задание приносит опыт всем, кто в нём участвовал. Каждые 100 XP — новый уровень.</p>
+          </li>
+          <li>
+            <h3>Поднимайся в рейтинге</h3>
+            <p>Таблица лидеров показывает пятёрку сильнейших героев и твоё место среди всех игроков.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="parchment">
+          <h2 class="h5 mb-1">Ранги искателя</h2>
+          <p class="small mb-3">Ранг растёт вместе с числом выполненных заданий и виден в профиле.</p>
+          <ul class="rank-ladder mb-4">
+            <li><span>🌱 Начинающий</span><span class="req">с первого дня</span></li>
+            <li><span>🗡️ Новобранец</span><span class="req">5 заданий</span></li>
+            <li><span>🛡️ Опытный искатель</span><span class="req">10 заданий</span></li>
+            <li><span>⚔️ Ветеран квестов</span><span class="req">20 заданий</span></li>
+            <li><span>🏆 Легенда подземелий</span><span class="req">50 заданий</span></li>
+          </ul>
+          <div class="d-flex justify-content-between small mb-1">
+            <span>Уровень 3</span><span>370 / 400 XP</span>
+          </div>
+          <div class="demo-xp" aria-hidden="true"><div></div></div>
+          <p class="small mb-0 mt-2">Так выглядит полоса опыта в профиле: до следующего уровня осталось 30 XP.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Возможности -->
+<section class="home-section">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <h2 class="section-title mb-3">Что внутри королевства</h2>
+        <p style="color:#d9ccb2;">Всё, что уже работает на сайте. Прогресс хранится на сервере, поэтому его видно с любого устройства.</p>
+      </div>
+      <div class="col-lg-8">
+        <ul class="feature-list">
+          <li>
+            <strong>Кланы</strong>
+            <span>Создание клана, вступление по коду приглашения, выход и роспуск. У клана есть владелец, и он же может его удалить.</span>
+          </li>
+          <li>
+            <strong>Журнал заданий</strong>
+            <span>Три колонки: доступные, в процессе и завершённые. Видно, кто взялся за задание и кто его закрыл.</span>
+          </li>
+          <li>
+            <strong>Опыт и уровни</strong>
+            <span>Опыт начисляется всем участникам задания. Полоса прогресса показывает, сколько осталось до нового уровня.</span>
+          </li>
+          <li>
+            <strong>Профиль героя</strong>
+            <span>Аватар, отображаемое имя, домашняя локация, главная цель, девиз и история выполненных заданий.</span>
+          </li>
+          <li>
+            <strong>Публичные профили</strong>
+            <span>Нажми на имя героя в рейтинге, чтобы посмотреть его класс, клан, уровень и достижения.</span>
+          </li>
+          <li>
+            <strong>Таблица лидеров</strong>
+            <span>Топ-5 героев по опыту и твоё личное место в общем зачёте.</span>
+          </li>
+        </ul>
+
+        {% if not user.is_authenticated %}
+          <div class="mt-4">
+            <a href="#auth" class="btn btn-gold" id="cta-register">Создать героя</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Кнопка «Создать героя» внизу страницы открывает вкладку регистрации
+  (function () {
+    var cta = document.getElementById('cta-register');
+    var tab = document.getElementById('register-tab');
+    if (!cta || !tab) return;
+    cta.addEventListener('click', function () {
+      bootstrap.Tab.getOrCreateInstance(tab).show();
+    });
+  })();
+
+  // Если регистрация не прошла, сразу показываем вкладку регистрации с ошибками
+  {% if registration_form.errors %}
+    document.addEventListener('DOMContentLoaded', function () {
+      var tab = document.getElementById('register-tab');
+      if (tab) bootstrap.Tab.getOrCreateInstance(tab).show();
+    });
+  {% endif %}
+</script>
+{% endblock %}

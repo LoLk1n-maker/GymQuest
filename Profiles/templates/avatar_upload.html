@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Загрузка аватара{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="parchment">
+                <h2 class="section-title text-center mb-4">Загрузить аватар</h2>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        Внимание!Для аватара поддерживаются только форматы: jpg, png,jpeg,gif
+
+                        {{ form.avatar }}
+                    </div>
+                    <div class="d-flex gap-3 justify-content-center">
+                        <button type="submit" class="btn btn-gold">Сохранить</button>
+                        <a href="{% url 'profile' %}" class="btn btn-outline-light">Отмена</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

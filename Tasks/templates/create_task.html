@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Создание задания{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+  <div class="container">
+
+    <h2 class="section-title text-center mb-4">Создание задания</h2>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-4">
+
+         <div class="parchment">
+
+            <h4 class="mb-3">Создать задание</h4>
+
+            <form method="post" action="{% url 'create_task' %}">
+              {% csrf_token %}
+
+              {{ form.title.label_tag }}
+              {{ form.title }}
+
+              {{ form.description.label_tag }}
+              {{ form.description }}
+
+
+              {{ form.xp_reward.label_tag }}(от <strong>1</strong> до <strong>1000</strong> XP)
+              {{ form.xp_reward }}
+
+
+              {{ form.deadline.label_tag }}
+              {{ form.deadline }}
+
+              <button class="btn btn-gold w-100 mt-3">
+                Создать
+              </button>
+
+            </form>
+
+          </div>
+
+        </div>
+
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

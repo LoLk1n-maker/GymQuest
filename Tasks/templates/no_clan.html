@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Нет клана{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+  <div class="container">
+
+<div class="row justify-content-center">
+  <div class="col-lg-6">
+
+    <div class="parchment text-center">
+
+      <h2 class="section-title mb-3">Ты одинокий странник...</h2>
+
+      <p class="mb-4">
+        В этом мире задания доступны только тем, кто сражается плечом к плечу.
+        <br>
+        Вступи в клан, чтобы открыть доступ к квестам, опыту и славе.
+      </p>
+
+      <img src="{% static 'images/viking.jpg' %}" class="img-fluid mb-4" style="max-height: 200px; border-radius: 12px;">
+
+      <div class="d-flex justify-content-center gap-3">
+        <a href="{% url 'clans' %}" class="btn btn-gold">
+          Найти клан
+        </a>
+
+        <a href="{% url 'profile' %}" class="btn btn-outline-dark">
+          В профиль
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+  </div>
+</section>
+
+{% endblock %}

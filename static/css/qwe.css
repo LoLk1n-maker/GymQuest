@@ -1,0 +1,639 @@
+/* --------------- Глобальные / Базовые стили --------------- */
+
+/* тут задаём фон для всего сайта, чтоб было мрачно и средневеково */
+body {
+  background: radial-gradient(circle at top, #42313a 0, #1a0f1e 50%, #0b060b 100%);
+  color: #f8f2e7;
+  font-family: "Trebuchet MS", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  margin: 0;
+
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* если надо поменять фон на конкретной странице, добавляем класс body */
+body.page-dungeon {
+  background: #050309;
+}
+body.page-store {
+  background: radial-gradient(circle at top, #301a20 0, #12050c 55%, #050307 100%);
+}
+body.page-clans {
+  background: radial-gradient(circle at top, #273044 0, #080c14 55%, #010308 100%);
+}
+body.page-battlepass {
+  background: radial-gradient(circle at top, #22263a 0, #060712 55%, #000000 100%);
+}
+body.page-leaderboard {
+  background: radial-gradient(circle at top, #20252f 0, #06080c 55%, #010206 100%);
+}
+body.page-character,
+body.page-profile {
+  background: radial-gradient(circle at top, #3c2c46 0, #130915 55%, #050208 100%);
+}
+
+
+/* ------------------ Навбар / Логотип / Футер ------------ */
+
+/* верхнее меню, чтоб не сливалось с фоном */
+.navbar {
+  background: rgba(5, 3, 10, 0.98);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* картинка логотипа, пока заглушка */
+.navbar-brand img {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: #222;
+}
+
+/* ссылки в меню */
+.nav-link {
+  color: #f2e6cf !important;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+}
+
+/* Сделать текст вкладок "Вход" и "Регистрация" чёрным */
+.parchment .nav-pills .nav-link {
+  color: black !important;
+}
+
+/* При наведении — тёмно-серый для интерактивности */
+.parchment .nav-pills .nav-link:hover {
+  color: #2c2c2c !important;
+}
+
+/* Активная вкладка дополнительно выделяется жирным (цвет остаётся чёрным) */
+.parchment .nav-pills .nav-link.active {
+  color: black !important;
+  font-weight: bold;
+}
+
+/* Сообщения об ошибках в формах внутри пергамента */
+.parchment .text-danger {
+    color: #b33 !important;
+    font-size: 0.85rem;
+    margin-top: 4px;
+    display: block;
+}
+
+.parchment .errorlist {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.parchment .errorlist li {
+    color: #b33;
+    font-size: 0.85rem;
+}
+
+/* Стили для alert-сообщений */
+.parchment .alert {
+    margin-bottom: 1rem;
+    border-radius: 8px;
+}
+
+.parchment .alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+.parchment .alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+/* подвал, чтоб текст был неярким */
+.footer-text {
+  font-size: 0.85rem;
+  color: #c0b49a;
+}
+
+/* -------------------- Типографика / Секции ------------ */
+
+/* заголовки секций, стилизуем под средневековый стиль */
+.section-title {
+  font-family: "Cinzel", "Times New Roman", serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffd86b;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
+}
+
+/* большой заголовок на главной, чтоб привлекал внимание */
+.hero-title {
+  font-family: "Cinzel", "Times New Roman", serif;
+  font-size: clamp(2.7rem, 4vw, 3.5rem);
+  text-shadow:
+    0 0 16px rgba(0, 0, 0, 0.9),
+    0 0 30px rgba(0, 0, 0, 0.7);
+}
+
+/* подзаголовок на главной, чуть светлее */
+.hero-subtitle {
+  color: #f9e4b7;
+  max-width: 540px;
+}
+
+/* ------------ Общие блоки (пергамент, карточки особенностей и т.д.) ----------------- */
+
+/* блоки в виде старого пергамента, использую на многих страницах */
+.parchment {
+  background: #f5e3c3;
+  color: #332211;
+  border-radius: 12px;
+  border: 3px solid #b18a4c;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.35);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* добавляем потёртости по краям, типа пергамент старый */
+.parchment::before,
+.parchment::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 0 0, rgba(0, 0, 0, 0.18) 0, transparent 55%),
+    radial-gradient(circle at 100% 100%, rgba(0, 0, 0, 0.18) 0, transparent 55%);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+
+/* карточки фич на главной и не только */
+.feature-card {
+  background: rgba(20, 12, 30, 0.9);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 216, 107, 0.3);
+  height: 100%;
+}
+
+/* маленькие плашки, типа кол-во опыта и прочее */
+.mini-pill {
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0.2rem 0.6rem;
+  font-size: 0.75rem;
+  display: inline-block;
+}
+
+/* ячейки дней недели в планировщике */
+.day-box {
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 10px;
+  padding: 0.7rem;
+  font-size: 0.85rem;
+}
+
+/* ------------- Кнопки ----------------- */
+
+/* главная кнопка с золотым градиентом, как в игре */
+.btn-gold {
+  background: linear-gradient(135deg, #ffde7a, #f3b64a);
+  border: 2px solid #915e10;
+  color: #3a2302;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, #ffe9a6, #ffc55d);
+  color: #261400;
+}
+
+/* --------- Полосы опыта / прогресса -----------==---- */
+
+/* основа для полоски опыта */
+.xp-bar,
+.timer-bar {
+  height: 0.9rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+/* заполнение полоски, пока 60% чтоб было видно */
+.xp-fill,
+.timer-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4af0ff, #ffde7a);
+  width: 60%;
+}
+
+/* ----------- Страница Подземелья ---------------- */
+
+/* карта подземелья, позиционирование относительно */
+.dungeon-map {
+  position: relative;
+  border-radius: 24px;
+  border: 3px solid rgba(255, 216, 107, 0.4);
+  overflow: hidden;
+  min-height: 420px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+}
+
+/* фон для подземелья, пока не используется, но пригодится */
+.dungeon-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.55);
+
+}
+
+/* оверлей поверх фона, для контента */
+.dungeon-overlay {
+  position: relative;
+  inset: 0;
+  padding: 2rem;
+}
+
+/* центральная цитадель, кружок с текстом */
+.castle-core {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 4px solid #ffd86b;
+  background: radial-gradient(circle at top, rgba(255,255,255,0.95) 0, rgba(180,180,180,0.95) 45%, rgba(60,60,60,0.95) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #3b2600;
+}
+
+/* точки с героями на карте */
+.hero-node {
+  width: 130px;
+  text-align: center;
+  color: #fff;
+  position: absolute;
+}
+
+.hero-node img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 3px solid #ffd86b;
+  object-fit: cover;
+  margin-bottom: 0.35rem;
+}
+
+/* позиционирование героев по сторонам */
+.hero-top    { top: 6%; left: 50%; transform: translateX(-50%); }
+.hero-bottom { bottom: 6%; left: 50%; transform: translateX(-50%); }
+.hero-left   { left: 4%; top: 50%; transform: translateY(-50%); }
+.hero-right  { right: 4%; top: 50%; transform: translateY(-50%); }
+
+/* блок с информацией о подземелье, справа */
+.dungeon-info {
+  background: rgba(10, 8, 20, 0.95);
+  border-radius: 18px;
+  border: 2px solid rgba(255, 216, 107, 0.35);
+  padding: 1.5rem;
+  height: 100%;
+}
+
+/* таймер в виде пилюли */
+.timer-pill {
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0.5rem 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+}
+
+/* --------------------- Страница Магазина ----------- */
+
+/* витрина товаров, тёмный градиент */
+.store-shelf {
+  background: linear-gradient(160deg, #1e1018, #2d1221);
+  border-radius: 20px;
+  border: 2px solid rgba(255, 216, 107, 0.35);
+  padding: 1.5rem;
+}
+
+/* карточка товара */
+.store-card {
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  height: 100%;
+}
+
+/* иконка товара, большая */
+.store-icon {
+  font-size: 1.7rem;
+}
+
+/* цена, выделена жёлтым */
+.store-price {
+  color: #ffde7a;
+  font-weight: 700;
+}
+
+/* ------------ Страница Кланов ----------------- */
+
+/* аватарки участников клана */
+.avatar-circle {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  margin-right: 0.35rem;
+}
+
+/* зелёная точка онлайн */
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #3ddc84;
+  border: 1px solid #0b401d;
+  display: inline-block;
+  margin-left: 0.25rem;
+}
+
+/* карточка клана */
+.clan-card {
+  background: rgba(10, 10, 20, 0.9);
+  border-radius: 18px;
+  border: 2px solid rgba(255, 216, 107, 0.35);
+  padding: 1.5rem;
+  height: 100%;
+}
+
+/* ----------------- Страница Профиля ------------ */
+
+/* карточка профиля */
+.profile-card2 {
+  background: rgba(10, 8, 20, 0.95);
+  border-radius: 18px;
+  border: 2px solid rgba(255, 216, 107, 0.4);
+  padding: 1.8rem;
+  height: 100%;
+
+}
+
+.profile-card1 {
+  background: rgba(10, 8, 20, 0.95);
+  border-radius: 18px;
+  border: 2px solid rgba(255, 216, 107, 0.4);
+  padding: 1.8rem;
+  height: 100%;
+  weight: 1000px;
+}
+
+
+/* большая аватарка */
+.avatar-large {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 4px solid #ffd86b;
+  object-fit: cover;
+  background: #000;
+}
+
+/* ---------- Страница Боевого Пропуска ----------- */
+
+/* обёртка для дорожки, чтоб можно было скроллить горизонтально */
+.pass-track-wrapper {
+  background: rgba(10, 10, 25, 0.95);
+  border-radius: 20px;
+  border: 2px solid rgba(255, 216, 107, 0.4);
+  padding: 1.5rem;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+/* сама дорожка с наградами */
+.pass-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+}
+
+/* линия прогресса под наградами */
+.pass-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #4af0ff, #ffde7a);
+  opacity: 0.5;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* карточка награды */
+.reward-card {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 120px;
+  height: 120px;
+  background: rgba(0, 0, 0, 0.65);
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  padding: 0.4rem;
+  z-index: 1;
+}
+
+.reward-level {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #ffd86b;
+}
+
+/* картинка награды, задаётся фоном */
+.reward-img {
+  width: 100%;
+  height: 60px;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 0.35rem;
+}
+
+.reward-title {
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+/* тултип с подробностями при наведении */
+.reward-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translate(-50%, -0.25rem);
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  width: 180px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease-in-out;
+  z-index: 10;
+  text-align: left;
+}
+
+.reward-card:hover .reward-tooltip {
+  opacity: 1;
+}
+
+/* треугольник под тултипом */
+.reward-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent;
+}
+
+/* ----------- Страница Таблицы Лидеров ------------- */
+
+/* карточка лидерборда */
+.lb-card {
+  background: rgba(10, 10, 20, 0.95);
+  border-radius: 18px;
+  border: 2px solid rgba(255, 216, 107, 0.35);
+  padding: 1.5rem;
+}
+
+/* маленькая аватарка в таблице */
+.avatar-sm {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  background: #000;
+}
+
+/* ---------- Страница Кастомизации Персонажа ----------- */
+
+/* карточка персонажа */
+.char-card {
+  background: rgba(10, 8, 20, 0.95);
+  border-radius: 18px;
+  border: 2px solid rgba(255, 216, 107, 0.4);
+  padding: 1.8rem;
+  height: 100%;
+}
+
+/* картинка персонажа */
+.char-preview img {
+  width: 130px;
+  height: 130px;
+  border-radius: 12px;
+  border: 3px solid #ffd86b;
+  object-fit: cover;
+  background: #000;
+}
+
+
+/* ссылки в футере, чтоб были золотыми при наведении */
+.footer a {
+  color: #c0b49a;
+  text-decoration: none;
+  transition: color 0.2s;
+
+}
+.footer a:hover {
+  color: #ffd86b;
+
+}
+
+main {
+  flex: 1;
+}
+
+
+body.page-profile input,
+body.page-profile select,
+body.page-profile textarea {
+  background: rgba(20, 15, 30, 0.9);
+  color: #f8f2e7;
+  border: 1px solid rgba(255, 216, 107, 0.25);
+}
+
+/* При фокусе (когда кликаешь в поле) */
+body.page-profile input:focus,
+body.page-profile select:focus,
+body.page-profile textarea:focus {
+  background: rgba(30, 20, 45, 0.95);
+  color: #ffffff;
+  border-color: #ffd86b;
+  box-shadow: 0 0 0 0.2rem rgba(255, 216, 107, 0.15);
+  outline: none;
+}
+
+/* Placeholder (подсказки внутри полей) */
+body.page-profile ::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Чтобы select стрелка не была белой (Bootstrap косяк) */
+body.page-profile select {
+  appearance: none;
+}
+
+
+/* В навбаре */
+.navbar .btn {
+  min-width: 100px;
+  font-weight: 500;
+}
+/* Делаем кнопки "Мой профиль" и "Выйти" одинаковыми */
+.parchment .btn-gold {
+    min-width: 160px !important;
+    padding: 12px 24px !important;
+    font-size: 1rem !important;
+    white-space: nowrap;
+}
+
+/* Дополнительно выравниваем высоту */
+.parchment .btn-gold,
+.parchment button.btn-gold {
+    height: 52px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}

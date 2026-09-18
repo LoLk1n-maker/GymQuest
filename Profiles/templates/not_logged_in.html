@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Доступ ограничен{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="parchment text-center">
+                <h3 class="mb-3">Доступ граничен</h3>
+                <p class="mb-4">Чтобы просматривать некоторый контент, необходимо войти в систему.</p>
+                <a href="{% url 'home' %}" class="btn btn-gold">Вернуться на главную</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

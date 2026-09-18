@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Таблица лидеров{% endblock %}
+
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="lb-card">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+            <h2 class="section-title mb-0">🏆 Таблица лидеров</h2>
+            <p class="mb-0">Топ‑5 героев по накопленному опыту</p>
+          </div>
+
+          {% if rating %}
+            <div class="table-responsive">
+              <table class="table table-dark table-hover align-middle">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Герой</th>
+                    <th scope="col">Класс</th>
+                    <th scope="col">Уровень</th>
+                    <th scope="col">Опыт</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for profile in rating %}
+                    <tr>
+                      <th scope="row" style="width: 70px;">
+                        {% if forloop.counter == 1 %}
+                          <span class="badge bg-warning text-dark fs-6 p-2">🥇 1</span>
+                        {% elif forloop.counter == 2 %}
+                          <span class="badge bg-secondary fs-6 p-2">🥈 2</span>
+                        {% elif forloop.counter == 3 %}
+                          <span class="badge bg-danger fs-6 p-2">🥉 3</span>
+                        {% else %}
+                          <span class="badge bg-dark fs-6 p-2">{{ forloop.counter }}</span>
+                        {% endif %}
+                      </th>
+                      <td>
+                        <div class="d-flex align-items-center gap-2">
+                          {% if profile.avatar %}
+                            <img src="{{ profile.avatar.url }}" alt="{{ profile.user.username }}" class="avatar-sm rounded-circle" width="40" height="40">
+                          {% else %}
+                            <img src="{% static 'images/default_avatar.jpg' %}"
+                                 alt="Аватар"
+                                 style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,216,107,0.5);">
+                          {% endif %}
+                          <a href="{% url 'public_profile' profile.user.username %}"
+                             class="text-light text-decoration-none">
+                            {{ profile.user.username }}
+                          </a>
+                        </div>
+                      </td>
+                      <td>
+                        {{ profile.get_character_class_display|default:profile.character_class }}
+                      </td>
+                      <td>{{ profile.level }}</td>
+                      <td>
+                        <span class="text-warning fw-bold">{{ profile.experience }}</span> XP
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <div class="text-center py-5">
+              <p class="mb-0">Пока нет данных. Станьте первым героем!</p>
+            </div>
+          {% endif %}
+
+          {% if user.is_authenticated %}
+                <h5 class="text-center mb-3" style="color: #ffd86b;">
+                  ⭐ Твоё место в рейтинге - {{ user_rank }}
+                </h5>
+          {% endif %}
+          <!-- ========================================== -->
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+{% endblock %}
