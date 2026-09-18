@@ -50,6 +50,7 @@ GymQuest Kingdom превращает тренировки в ролевую и�
 - при создании клана в журнал сразу добавляются три стартовых задания.
 
 Cтраница кланов
+
 <img width="1920" height="951" alt="image" src="https://github.com/user-attachments/assets/de403d62-dded-43e7-85da-e67e20a30903" />
 
 
@@ -61,6 +62,7 @@ Cтраница кланов
 - опыт за выполненное задание получают все его участники.
 
 Журнал заданий
+
 <img width="1919" height="951" alt="image" src="https://github.com/user-attachments/assets/d37f41fe-4a0c-447e-ad74-acd79d461c1c" />
 
 Форма создания задания
@@ -91,9 +93,11 @@ Cтраница кланов
 - публичный профиль любого героя по адресу `/profile/<username>/`.
 
 Личный профиль
+
 <img width="1920" height="951" alt="image" src="https://github.com/user-attachments/assets/e251232e-d476-42a5-a3e9-0d94a4952095" />
 
 Публичный профиль другого игрока
+
 <img width="1920" height="948" alt="image" src="https://github.com/user-attachments/assets/eaee91e3-5ac4-4cbb-93bc-5cd25f2e6517" />
 
 ### 🏆 Таблица лидеров
@@ -101,6 +105,7 @@ Cтраница кланов
 Топ-5 героев по опыту с медалями за первые три места и личное место текущего игрока в общем зачёте.
 
 Таблица лидеров:
+
 <img width="1920" height="951" alt="image" src="https://github.com/user-attachments/assets/658101cc-e888-4453-b21f-a14a307719b9" />
 
 
