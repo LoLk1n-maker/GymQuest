@@ -37,6 +37,7 @@ GymQuest Kingdom превращает тренировки в ролевую и�
 | 🧙 Маг | кор и мобильность |
 
 Форма регистрации с выбором класса
+
 <img width="583" height="742" alt="image" src="https://github.com/user-attachments/assets/b7bdbb74-d79d-4bf5-a7b6-5d389fe1962e" />
 
 
