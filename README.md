@@ -64,6 +64,7 @@ Cтраница кланов
 <img width="1919" height="951" alt="image" src="https://github.com/user-attachments/assets/d37f41fe-4a0c-447e-ad74-acd79d461c1c" />
 
 Форма создания задания
+
 <img width="556" height="609" alt="image" src="https://github.com/user-attachments/assets/43691ae7-a4e1-4e33-9348-8c941774432d" />
 
 
